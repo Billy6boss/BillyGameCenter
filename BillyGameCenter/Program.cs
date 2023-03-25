@@ -1,4 +1,5 @@
 using BillyGameCenter;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,15 +8,6 @@ builder.Services.AddControllersWithViews();
 //builder.Services.AddTransient<ServerRequestMiddleware>();
 
 var app = builder.Build();
-
-app.Use(async (context, next) =>
-{
-    await context.Response.WriteAsync("Before Environment Check Start-----\n");
-    await context.Response.WriteAsync($"Before Environment Check {context.Request} \n");
-    await next();
-    await context.Response.WriteAsync("Before Environment Check End-----\n");
-});
-
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -27,23 +19,32 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
-
-app.Use(async (context, next) =>
+//註冊WebImages folder
+app.UseStaticFiles(new StaticFileOptions
 {
-    await context.Response.WriteAsync("Before Routing Check Start-----\n");
-    await context.Response.WriteAsync($"Before Routing Check {context.Request}\n");
-    await next();
-    await context.Response.WriteAsync("Before Routing Check End-----\n");
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(builder.Environment.ContentRootPath, "wwwroot/home")),
+    RequestPath = "/home"
 });
-app.UseMiddleware<ServerRequestMiddleware>();
+
+
+// app.Use(async (context, next) =>
+// {
+//     await context.Response.WriteAsync("Before Routing Check Start-----\n");
+//     await context.Response.WriteAsync($"Before Routing Check {context.Request}\n");
+//     await next();
+//     await context.Response.WriteAsync("Before Routing Check End-----\n");
+// });
+
+// app.Run(async (context) =>
+// {
+//     await context.Response.WriteAsync("Just Run Before Authorization \n");
+// });
+
+// app.UseMiddleware<ServerRequestMiddleware>();
 
 app.UseRouting();
 
-app.Run(async (context) =>
-{
-    await context.Response.WriteAsync("Just Run Before Authorization \n");
-});
 app.UseAuthorization();
 
 app.MapControllerRoute(

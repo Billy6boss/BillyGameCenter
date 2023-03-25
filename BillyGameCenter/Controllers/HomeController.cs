@@ -17,6 +17,7 @@ public class HomeController : Controller
     {
         ViewBag.NowTime = DateTime.Now;
         ViewBag.hereWeGoAgain = "Hello Bitch";
+        _logger.LogDebug("Just Debug Test");
         return View();
     }
 
