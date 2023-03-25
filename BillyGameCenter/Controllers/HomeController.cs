@@ -12,7 +12,8 @@ public class HomeController : Controller
     {
         _logger = logger;
     }
-
+    
+    [HeaderActionFilter(RedirectAction = "Index", RedirectController = "User")]
     public IActionResult Index()
     {
         ViewBag.NowTime = DateTime.Now;
