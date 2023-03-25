@@ -21,6 +21,7 @@ public class HomeController : Controller
         return View();
     }
 
+    [TypeFilter(typeof(BackendAuthFilter))]
     public IActionResult Privacy()
     {
         return View();
