@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-//builder.Services.AddTransient<ServerRequestMiddleware>();
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
@@ -42,14 +42,15 @@ app.UseStaticFiles(new StaticFileOptions
 // });
 
 // app.UseMiddleware<ServerRequestMiddleware>();
-
 app.UseRouting();
 
 app.UseAuthorization();
 
+app.MapHealthChecks("admin/health");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 
 app.Run();
