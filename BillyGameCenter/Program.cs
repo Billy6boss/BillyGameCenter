@@ -1,4 +1,7 @@
 using BillyGameCenter;
+using BillyGameCenter.DataAccess;
+using BillyGameCenter.Hub;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddHealthChecks();
+builder.Services.AddSignalR();
+builder.Services.AddDbContext<RepositoryBase>(options =>
+    options.UseSqlServer("Server=localhost;Database=master;Trusted_Connection=True;"));
 
 var app = builder.Build();
 
@@ -44,6 +50,10 @@ app.UseStaticFiles(new StaticFileOptions
 // app.UseMiddleware<ServerRequestMiddleware>();
 app.UseRouting();
 
+app.UseEndpoints(endpoint =>
+{
+    endpoint.MapHub<ChatHub>("/chatHub");
+});
 app.UseAuthorization();
 
 app.MapHealthChecks("admin/health");

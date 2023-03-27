@@ -1,12 +1,14 @@
-﻿namespace BillyGameCenter.DataAccess
-{
-    public abstract class RepositoryBase
-    {
-        protected readonly string DBName;
+﻿using BillyGameCenter.Models;
+using Microsoft.EntityFrameworkCore;
 
-        protected RepositoryBase(string dbName)
+namespace BillyGameCenter.DataAccess
+{
+    public class RepositoryBase : DbContext
+    {
+        public RepositoryBase(DbContextOptions<RepositoryBase> options) : base(options)
         {
-            DBName = dbName;
         }
+
+        private DbSet<PlayerInfoEntity> PlayerInfo { get; set; }
     }
 }

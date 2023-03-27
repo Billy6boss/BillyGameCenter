@@ -8,6 +8,24 @@
 
     <ItemGroup>
       <PackageReference Include="Dapper" Version="2.0.123" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0-preview.2.23128.3" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0-preview.2.23128.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="SignalRChat\Pages\Error.cshtml" />
+      <_ContentIncludedByDefault Remove="SignalRChat\Pages\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="SignalRChat\Pages\Privacy.cshtml" />
+      <_ContentIncludedByDefault Remove="SignalRChat\Pages\Shared\_Layout.cshtml" />
+      <_ContentIncludedByDefault Remove="SignalRChat\Pages\Shared\_ValidationScriptsPartial.cshtml" />
+      <_ContentIncludedByDefault Remove="SignalRChat\Pages\_ViewImports.cshtml" />
+      <_ContentIncludedByDefault Remove="SignalRChat\Pages\_ViewStart.cshtml" />
+      <_ContentIncludedByDefault Remove="SignalRChat\appsettings.Development.json" />
+      <_ContentIncludedByDefault Remove="SignalRChat\appsettings.json" />
+      <_ContentIncludedByDefault Remove="SignalRChat\obj\Debug\net6.0\project.razor.json" />
+      <_ContentIncludedByDefault Remove="SignalRChat\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="SignalRChat\obj\SignalRChat.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="SignalRChat\Properties\launchSettings.json" />
     </ItemGroup>
 
 </Project>
